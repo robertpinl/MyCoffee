@@ -2,14 +2,14 @@
 //  OrdersTableViewController.swift
 //  MyCoffee
 //
-//  Created by Robert P on 29.03.2021.
+//  Created by Robert Pinl on 29.03.2021.
 //
 
 import UIKit
 
 class OrdersTableViewController: UITableViewController {
     
-    var characters = ["Link", "Zelda", "Ganondorf", "Midna"]
+    var orderListViewModel = OrderListViewModel()
     let addOrderViewController = AddOrderViewController()
     
     override func loadView() {
@@ -19,30 +19,44 @@ class OrdersTableViewController: UITableViewController {
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addOrder))
         
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "orderCell")
+        tableView.register(OrderTableViewCell.self, forCellReuseIdentifier: "orderCell")
+        tableView.rowHeight = 80
+        
+        fetchOrders()
     }
     
-    @objc func addOrder() {
+    @objc private func addOrder() {
         self.navigationController?.pushViewController(addOrderViewController, animated: true)
     }
     
+    private func fetchOrders() {
+        WebService.shared.fetchOrders { [weak self] (orders) in
+                self?.orderListViewModel.ordersViewModel = orders.map(OrderViewModel.init)
+            self?.tableView.reloadData()
+            }
+        }
+    
     // MARK: - Table view data source
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return 4
+        return orderListViewModel.ordersViewModel.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "orderCell", for: indexPath)
-        cell.textLabel?.text = characters[indexPath.row]
-        
+        let cell = tableView.dequeueReusableCell(withIdentifier: "orderCell", for: indexPath) as! OrderTableViewCell
+        let orders = orderListViewModel.orderViewModel(at: indexPath.row)
+        cell.type.text = orders.type
+        cell.name.text = orders.name
+        cell.size.text = orders.size
         return cell
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-        
-    }
+         tableView.deselectRow(at: indexPath, animated: true)
+     }
+    
+//    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+//        return 80
+//    }
     
     /*
      // Override to support conditional editing of the table view.
