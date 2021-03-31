@@ -18,7 +18,7 @@ class OrdersTableViewController: UITableViewController {
         navigationItem.title = "Orders"
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationItem.largeTitleDisplayMode = .always
-
+        
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addOrder))
         
         tableView.register(OrderTableViewCell.self, forCellReuseIdentifier: "orderCell")
@@ -33,10 +33,10 @@ class OrdersTableViewController: UITableViewController {
     
     private func fetchOrders() {
         WebService.shared.fetchOrders { [weak self] (orders) in
-                self?.orderListViewModel.ordersViewModel = orders.map(OrderViewModel.init)
+            self?.orderListViewModel.ordersViewModel = orders.map(OrderViewModel.init)
             self?.tableView.reloadData()
-            }
         }
+    }
     
     // MARK: - Table view data source
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -54,12 +54,12 @@ class OrdersTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-         tableView.deselectRow(at: indexPath, animated: true)
-     }
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
     
-//    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-//        return 80
-//    }
+    //    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+    //        return 80
+    //    }
     
     /*
      // Override to support conditional editing of the table view.

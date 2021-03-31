@@ -7,19 +7,16 @@
 
 import UIKit
 
-class AddOrderViewController: UIViewController, UITableViewDelegate {
-    
+class AddOrderViewController: UIViewController {
+        
     let tableView = UITableView()
-    let segmentedControl = UISegmentedControl(items: ["Small", "Medium", "Large"])
+    let segmentedControl = UISegmentedControl(items: AddOrderViewModel().sizes)
     let nameTextField = UITextField()
     let emailTextField = UITextField()
     var safeArea: UILayoutGuide!
     
-    var coffeType = [CoffeeType]()
-    
-    let addOrderViewModel = AddOrderViewModel()
-    
-    
+    var addOrderViewModel = AddOrderViewModel()
+        
     override func loadView() {
         super.loadView()
         
@@ -40,7 +37,18 @@ class AddOrderViewController: UIViewController, UITableViewDelegate {
     }
     
     @objc private func save() {
-        print("Saved!")
+        let name = nameTextField.text
+        let email = emailTextField.text
+        
+        guard let indexPath = self.tableView.indexPathForSelectedRow else {
+        fatalError("Error in selecting coffee!")}
+        
+        let size = segmentedControl.titleForSegment(at: self.segmentedControl.selectedSegmentIndex)
+        
+        self.addOrderViewModel.name = name
+        self.addOrderViewModel.email = email
+        self.addOrderViewModel.selectedType = self.addOrderViewModel.types[indexPath.row]
+        self.addOrderViewModel.selectedSize = size
     }
     
 
@@ -99,7 +107,7 @@ class AddOrderViewController: UIViewController, UITableViewDelegate {
 }
 
 //MARK: - TableView Data Source
-extension AddOrderViewController: UITableViewDataSource {
+extension AddOrderViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return CoffeeType.allCases.count
     }
@@ -112,6 +120,10 @@ extension AddOrderViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
+        tableView.cellForRow(at: indexPath)?.accessoryType = .checkmark
+    }
+    
+    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+        tableView.cellForRow(at: indexPath)?.accessoryType = .none
     }
 }
