@@ -17,10 +17,12 @@ class OrdersTableViewController: UITableViewController {
         
         navigationItem.title = "Orders"
         navigationController?.navigationBar.prefersLargeTitles = true
+        navigationItem.largeTitleDisplayMode = .always
+
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addOrder))
         
         tableView.register(OrderTableViewCell.self, forCellReuseIdentifier: "orderCell")
-        tableView.rowHeight = 80
+        tableView.rowHeight = 75
         
         fetchOrders()
     }
@@ -47,6 +49,7 @@ class OrdersTableViewController: UITableViewController {
         cell.type.text = orders.type
         cell.name.text = orders.name
         cell.size.text = orders.size
+        cell.selectionStyle = .none
         return cell
     }
     

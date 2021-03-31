@@ -15,14 +15,17 @@ class AddOrderViewController: UIViewController, UITableViewDelegate {
     let emailTextField = UITextField()
     var safeArea: UILayoutGuide!
     
-    var characters = ["Link", "Zelda", "Ganondorf", "Midna"]
+    var coffeType = [CoffeeType]()
+    
+    let addOrderViewModel = AddOrderViewModel()
+    
     
     override func loadView() {
         super.loadView()
         
         navigationItem.title = "Add New Order"
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(save))
-        navigationController?.navigationBar.prefersLargeTitles = true
+        navigationItem.largeTitleDisplayMode = .never
         view.backgroundColor = .systemBackground
         safeArea = view.layoutMarginsGuide
         
@@ -33,8 +36,14 @@ class AddOrderViewController: UIViewController, UITableViewDelegate {
         
         tableView.delegate = self
         tableView.dataSource = self
+        
     }
     
+    @objc private func save() {
+        print("Saved!")
+    }
+    
+
     private func configureTableView() {
         view.addSubview(tableView)
         tableView.translatesAutoresizingMaskIntoConstraints = false
@@ -42,7 +51,7 @@ class AddOrderViewController: UIViewController, UITableViewDelegate {
         
         NSLayoutConstraint.activate([
             tableView.topAnchor.constraint(equalTo: safeArea.topAnchor),
-            tableView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.25),
+            tableView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.3),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor)
         ])
@@ -87,22 +96,18 @@ class AddOrderViewController: UIViewController, UITableViewDelegate {
             
         ])
     }
-    
-    @objc func save() {
-        
-    }
 }
 
 //MARK: - TableView Data Source
 extension AddOrderViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return characters.count
+        return CoffeeType.allCases.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
         cell.selectionStyle = .none
-        cell.textLabel?.text = characters[indexPath.row]
+        cell.textLabel?.text = addOrderViewModel.types[indexPath.row]
         return cell
     }
     
