@@ -7,6 +7,10 @@
 
 import UIKit
 
+protocol AddCoffeeDelegate {
+    func didAddCoffeeOrder(order: Order)
+}
+
 class AddOrderViewController: UIViewController {
         
     let tableView = UITableView()
@@ -16,6 +20,8 @@ class AddOrderViewController: UIViewController {
     var safeArea: UILayoutGuide!
     
     var addOrderViewModel = AddOrderViewModel()
+    
+    var delegate: AddCoffeeDelegate!
         
     override func loadView() {
         super.loadView()
@@ -49,6 +55,16 @@ class AddOrderViewController: UIViewController {
         self.addOrderViewModel.email = email
         self.addOrderViewModel.selectedType = self.addOrderViewModel.types[indexPath.row]
         self.addOrderViewModel.selectedSize = size
+        
+        guard let order = Order(addOrderViewModel) else {
+            fatalError()
+        }
+        
+        PostWebService().sendOrder(order: order)
+        
+        delegate.didAddCoffeeOrder(order: order)
+        
+        navigationController?.popViewController(animated: true)
     }
     
 
@@ -83,6 +99,7 @@ class AddOrderViewController: UIViewController {
         nameTextField.translatesAutoresizingMaskIntoConstraints = false
         nameTextField.borderStyle = .roundedRect
         nameTextField.placeholder = "Name"
+        nameTextField.text = "John Snow"
         
         NSLayoutConstraint.activate([
             nameTextField.topAnchor.constraint(equalTo: segmentedControl.bottomAnchor, constant: 25),
@@ -95,6 +112,7 @@ class AddOrderViewController: UIViewController {
         emailTextField.translatesAutoresizingMaskIntoConstraints = false
         emailTextField.borderStyle = .roundedRect
         emailTextField.placeholder = "Email"
+        emailTextField.text = "john@snow.cz"
         
         NSLayoutConstraint.activate([
             emailTextField.topAnchor.constraint(equalTo: segmentedControl.bottomAnchor, constant: 25),

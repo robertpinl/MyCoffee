@@ -17,9 +17,9 @@ enum CoffeeType: String, Codable, CaseIterable {
 }
 
 enum CoffeeSize: String, Codable, CaseIterable {
-    case large
-    case medium
     case small
+    case medium
+    case large
 }
 
 struct Order: Codable {
@@ -27,4 +27,21 @@ struct Order: Codable {
     let email: String
     let type: CoffeeType
     let size: CoffeeSize
+}
+
+extension Order {
+    init?(_ vm: AddOrderViewModel) {
+        
+        guard let name = vm.name,
+              let email = vm.email,
+              let selectedType = CoffeeType(rawValue: vm.selectedType!.lowercased()),
+              let selectedSize = CoffeeSize(rawValue: vm.selectedSize!.lowercased()) else {
+            return nil
+        }
+        
+        self.name = name
+        self.email = email
+        self.type = selectedType
+        self.size = selectedSize
+    }
 }

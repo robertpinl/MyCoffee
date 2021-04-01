@@ -12,11 +12,12 @@ class WebService {
     static let shared = WebService()
     
     func fetchOrders(completion: @escaping ([Order]) -> Void) {
-        if let url = URL(string: "https://api.jsonbin.io/b/60649d6618592d461f042b5a") {
+        
+        if let url = URL(string: "https://guarded-retreat-82533.herokuapp.com/orders") {
             let session = URLSession(configuration: .default)
             let task = session.dataTask(with: url) { (data, response, error) in
                 if error != nil {
-                    print(error.debugDescription)
+                    print(error.debugDescription)   
                     return
                 }
                 if let safeData = data {
