@@ -102,6 +102,7 @@ class AddOrderViewController: UIViewController {
         nameTextField.translatesAutoresizingMaskIntoConstraints = false
         nameTextField.borderStyle = .roundedRect
         nameTextField.placeholder = "Name"
+        nameTextField.backgroundColor = .secondarySystemBackground
         
         NSLayoutConstraint.activate([
             nameTextField.topAnchor.constraint(equalTo: segmentedControl.bottomAnchor, constant: 25),
@@ -114,6 +115,7 @@ class AddOrderViewController: UIViewController {
         emailTextField.translatesAutoresizingMaskIntoConstraints = false
         emailTextField.borderStyle = .roundedRect
         emailTextField.placeholder = "Email"
+        emailTextField.backgroundColor = .secondarySystemBackground
         
         NSLayoutConstraint.activate([
             emailTextField.topAnchor.constraint(equalTo: segmentedControl.bottomAnchor, constant: 25),
