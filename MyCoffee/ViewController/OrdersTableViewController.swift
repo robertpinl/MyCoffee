@@ -33,7 +33,7 @@ class OrdersTableViewController: UITableViewController {
     }
     
     private func fetchOrders() {
-        WebService.shared.fetchOrders { [weak self] (orders) in
+        GetWebService.shared.fetchOrders { [weak self] (orders) in
             self?.orderListViewModel.ordersViewModel = orders.map(OrderViewModel.init)
             self?.tableView.reloadData()
         }
@@ -53,17 +53,14 @@ class OrdersTableViewController: UITableViewController {
         cell.selectionStyle = .none
         return cell
     }
-    
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
-    }
 }
 
+//MARK: - Add new order to table view
 extension OrdersTableViewController: AddCoffeeDelegate {
     func didAddCoffeeOrder(order: Order) {
-        self.orderListViewModel.ordersViewModel.append(OrderViewModel(order: order))
-        self.tableView.reloadData()
+        DispatchQueue.main.async {
+            self.orderListViewModel.ordersViewModel.append(OrderViewModel(order: order))
+            self.tableView.reloadData()
+        }
     }
-    
-    
 }

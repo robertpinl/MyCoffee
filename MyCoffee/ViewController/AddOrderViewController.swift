@@ -12,7 +12,7 @@ protocol AddCoffeeDelegate {
 }
 
 class AddOrderViewController: UIViewController {
-        
+    
     let tableView = UITableView()
     let segmentedControl = UISegmentedControl(items: AddOrderViewModel().sizes)
     let nameTextField = UITextField()
@@ -22,7 +22,7 @@ class AddOrderViewController: UIViewController {
     var addOrderViewModel = AddOrderViewModel()
     
     var delegate: AddCoffeeDelegate!
-        
+    
     override func loadView() {
         super.loadView()
         
@@ -47,7 +47,8 @@ class AddOrderViewController: UIViewController {
         let email = emailTextField.text
         
         guard let indexPath = self.tableView.indexPathForSelectedRow else {
-        fatalError("Error in selecting coffee!")}
+            return
+        }
         
         let size = segmentedControl.titleForSegment(at: self.segmentedControl.selectedSegmentIndex)
         
@@ -57,17 +58,19 @@ class AddOrderViewController: UIViewController {
         self.addOrderViewModel.selectedSize = size
         
         guard let order = Order(addOrderViewModel) else {
-            fatalError()
+            return
         }
         
-        PostWebService().sendOrder(order: order)
-        
-        delegate.didAddCoffeeOrder(order: order)
-        
-        navigationController?.popViewController(animated: true)
+        if nameTextField.text != "" && emailTextField.text != "" && self.addOrderViewModel.selectedType != nil {
+            PostWebService().sendOrder(order: order)
+            delegate.didAddCoffeeOrder(order: order)
+            navigationController?.popViewController(animated: true)
+        } else {
+            print("Add value!")
+        }
     }
     
-
+    
     private func configureTableView() {
         view.addSubview(tableView)
         tableView.translatesAutoresizingMaskIntoConstraints = false
@@ -99,7 +102,6 @@ class AddOrderViewController: UIViewController {
         nameTextField.translatesAutoresizingMaskIntoConstraints = false
         nameTextField.borderStyle = .roundedRect
         nameTextField.placeholder = "Name"
-        nameTextField.text = "John Snow"
         
         NSLayoutConstraint.activate([
             nameTextField.topAnchor.constraint(equalTo: segmentedControl.bottomAnchor, constant: 25),
@@ -112,7 +114,6 @@ class AddOrderViewController: UIViewController {
         emailTextField.translatesAutoresizingMaskIntoConstraints = false
         emailTextField.borderStyle = .roundedRect
         emailTextField.placeholder = "Email"
-        emailTextField.text = "john@snow.cz"
         
         NSLayoutConstraint.activate([
             emailTextField.topAnchor.constraint(equalTo: segmentedControl.bottomAnchor, constant: 25),

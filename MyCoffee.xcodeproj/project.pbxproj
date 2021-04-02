@@ -13,7 +13,7 @@
 		D47B00512614D613004022A6 /* OrderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D47B00502614D613004022A6 /* OrderTableViewCell.swift */; };
 		D47B00542614E419004022A6 /* AddOrderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D47B00532614E419004022A6 /* AddOrderViewModel.swift */; };
 		D47B005726151174004022A6 /* PostWebService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D47B005626151174004022A6 /* PostWebService.swift */; };
-		D492BEE72613415700A93045 /* WebService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D492BEE62613415700A93045 /* WebService.swift */; };
+		D492BEE72613415700A93045 /* GetWebService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D492BEE62613415700A93045 /* GetWebService.swift */; };
 		D497A7BB261223E100F21755 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D497A7BA261223E100F21755 /* AppDelegate.swift */; };
 		D497A7BD261223E100F21755 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D497A7BC261223E100F21755 /* SceneDelegate.swift */; };
 		D497A7C4261223E300F21755 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D497A7C3261223E300F21755 /* Assets.xcassets */; };
@@ -29,7 +29,7 @@
 		D47B00502614D613004022A6 /* OrderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderTableViewCell.swift; sourceTree = "<group>"; };
 		D47B00532614E419004022A6 /* AddOrderViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddOrderViewModel.swift; sourceTree = "<group>"; };
 		D47B005626151174004022A6 /* PostWebService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostWebService.swift; sourceTree = "<group>"; };
-		D492BEE62613415700A93045 /* WebService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebService.swift; sourceTree = "<group>"; };
+		D492BEE62613415700A93045 /* GetWebService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetWebService.swift; sourceTree = "<group>"; };
 		D497A7B7261223E100F21755 /* MyCoffee.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyCoffee.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D497A7BA261223E100F21755 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D497A7BC261223E100F21755 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -54,7 +54,7 @@
 		D492BEE52613412700A93045 /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				D492BEE62613415700A93045 /* WebService.swift */,
+				D492BEE62613415700A93045 /* GetWebService.swift */,
 				D47B005626151174004022A6 /* PostWebService.swift */,
 			);
 			path = Services;
@@ -195,7 +195,7 @@
 				D497A7BD261223E100F21755 /* SceneDelegate.swift in Sources */,
 				D497A7D2261228D300F21755 /* OrdersTableViewController.swift in Sources */,
 				D47B00542614E419004022A6 /* AddOrderViewModel.swift in Sources */,
-				D492BEE72613415700A93045 /* WebService.swift in Sources */,
+				D492BEE72613415700A93045 /* GetWebService.swift in Sources */,
 				D47B00512614D613004022A6 /* OrderTableViewCell.swift in Sources */,
 				D497A7D62612321900F21755 /* AddOrderViewController.swift in Sources */,
 				D4018EAB2614B2450024D301 /* OrderListViewModel.swift in Sources */,

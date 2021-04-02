@@ -13,11 +13,12 @@ class PostWebService {
         
         if let url = URL(string: "https://guarded-retreat-82533.herokuapp.com/orders") {
             
-            let encoder = JSONEncoder()
-            encoder.outputFormatting = .prettyPrinted
-            let jsonData = try? encoder.encode(order)
+            guard let jsonData = jsonEncoder(data: order) else {
+                return
+            }
             
-            var request = URLRequest(url: url)
+            var request = URLRequest(url: url) 
+            
             request.httpMethod = "POST"
             request.httpBody = jsonData
             
@@ -32,5 +33,17 @@ class PostWebService {
             }
             .resume()
         }
+    }
+    
+    func jsonEncoder(data: Order) -> Data? {
+        let encoder = JSONEncoder()
+        encoder.outputFormatting = .prettyPrinted
+        do {
+            let jsonData = try encoder.encode(data)
+            return jsonData
+        } catch {
+            print("Erroro encoding JSON")
+        }
+        return nil
     }
 }

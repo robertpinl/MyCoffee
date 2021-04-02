@@ -1,5 +1,5 @@
 //
-//  WebService.swift
+//  GetWebService.swift
 //  MyCoffee
 //
 //  Created by Robert Pinl on 30.03.2021.
@@ -7,9 +7,9 @@
 
 import UIKit
 
-class WebService {
+class GetWebService {
     
-    static let shared = WebService()
+    static let shared = GetWebService()
     
     func fetchOrders(completion: @escaping ([Order]) -> Void) {
         

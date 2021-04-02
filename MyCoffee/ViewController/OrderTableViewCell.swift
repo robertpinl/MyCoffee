@@ -25,7 +25,7 @@ class OrderTableViewCell: UITableViewCell {
         contentView.addSubview(type)
         type.translatesAutoresizingMaskIntoConstraints = false
         
-        type.font = UIFont.systemFont(ofSize: 22, weight: .light)
+        type.font = UIFont.systemFont(ofSize: 20, weight: .light)
         
         NSLayoutConstraint.activate([
             type.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 25),
@@ -51,7 +51,7 @@ class OrderTableViewCell: UITableViewCell {
         contentView.addSubview(size)
         size.translatesAutoresizingMaskIntoConstraints = false
         
-        size.font = UIFont.systemFont(ofSize: 20, weight: .thin)
+        size.font = UIFont.systemFont(ofSize: 20, weight: .light)
         
         NSLayoutConstraint.activate([
             size.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -25),
